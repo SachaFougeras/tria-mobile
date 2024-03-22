@@ -1,12 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet, navigation, Button } from 'react-native';
+import { View, Text, StyleSheet, navigation, Button, Image } from 'react-native';
 
 
 const AccountScreen = () => {
   const [nom, setNom] = useState('azertyuiop');
   const [prenom, setPrenom] = useState('azertyuiop');
   const [email, setEmail] = useState('azertyu@erty.com');
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Mon Compte', 
+      headerStyle: {
+        backgroundColor: 'black',
+      },
+      headerTintColor: 'white',
+      headerLeft: () => (
+        <Image
+          source={require('../assets/image.png')}
+          style={styles.logo}
+        />
+      ),
+    });
+  }, [navigation]);
 
  
   const navigation = useNavigation();
@@ -69,7 +84,12 @@ const AccountScreen = () => {
       shadowRadius: 2,
       elevation: 5,
     },
-    // ...
+      logo: {
+        width: 50,
+        height: 50,
+        marginLeft: 10,
+      }
+  
   });
 
 export default AccountScreen;
