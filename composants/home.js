@@ -28,18 +28,22 @@ function HomeScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Découvrez les nouveautés</Text>
-
-      {/* Replace this with real data */}
+      <View style={styles.imageContainer}>
+<Image style={styles.image} source={require('../assets/PhoneMan.jpg')} />
+</View>
       <View style={styles.play}>
       <View>
         <Text style={styles.playTitle}>Cyrano DeBergerac</Text>
         </View>
         <Text style={styles.playDescription}>Un mousquetaire au nez diforme mais au savoir incommensurable est secrètement amoureuse d'une femme se prénommant Roxanne mais qui n'a d'yeux que pour le beau Tristan. Mais Tristant quant à lui est un mousquetaire au physique attirant mais qui n'est pas doué pour la poèsie. Roxanne en revanche n'aime que les hommes de lettres qui parviennent à la séduire avec des mots. Cyrano s'engage à aider Tristan pour séduire RoxanneUn mousquetaire au nez diforme mais au savoir incommensurable est secrètement amoureuse d'une femme se prénommant Roxanne mais qui n'a d'yeux que pour le beau Tristan. Mais Tristant quant à lui est un mousquetaire au physique attirant mais qui n'est pas doué pour la poèsie. </Text>
+        <View>
         <Button 
-        style={styles.button}
+            style={styles.button}
+            color="#FF3131"
           title="Détails" 
           onPress={() => navigation.navigate('Detail', { playTitle: 'Cyrano DeBergerac' })}
         />
+        </View>
       </View>
 
       {/* Add more plays... */}
@@ -69,6 +73,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginBottom: 20,
   },
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: '90%',
+    height: 250,
+  },
   play: {
     backgroundColor: '#fff',
     margin: 10,
@@ -77,10 +90,13 @@ const styles = StyleSheet.create({
   },
   playTitle: {
     fontSize: 20,
+    fontWeight: 'bold',
     color: '#000',
+    marginBottom: 10
   },
   button: {
-    backgroundColor: '#FF3131',
+    marginTop: 20,
+    backgroundColor: 'red',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,

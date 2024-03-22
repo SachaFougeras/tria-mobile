@@ -27,7 +27,7 @@ const LoginPage = () => {
     if (responseData.status_code  == 200) {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'MyTabs' }],
+        routes: [{ name: 'Trìa' }],
       });
       console.log(responseData);
       setSuccessMessage('Vous vous êtes bien authentifié !');

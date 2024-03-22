@@ -7,8 +7,9 @@ const LoginPage = () => {
   const [email, setEmail] = useState('azertyu@erty.com');
   const [password, setPassword] = useState('Azertyuio06*aazza');
 
-  const handleSubmit = () => {
-    fetch('http://139.59.189.145/api/login', {
+  const handleSubmit = async () => {
+    try {
+  const response = await fetch('http://139.59.189.145/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -18,17 +19,26 @@ const LoginPage = () => {
         password: password,
       }),
     })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-        navigation.navigate('MyTabs');
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        navigation.navigate('MyTabs');
+    const responseData = await response.json();
+  
+    if (responseData.status_code  == 200) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Trìa' }],
       });
+      console.log(responseData);
+      setSuccessMessage('Vous vous êtes bien authentifié !');
+      alert(`Bonjour ${prenom} ${nom}, vous vous êtes bien authentifié !`);
+    }
+    else {
+      // L'inscription a échoué, affichez un message d'erreur
+      console.log(responseData);
+      alert('Email ou mot de passe incorrect !');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
   return (
     <View style={styles.container}>
 <View style={styles.imageContainer}>

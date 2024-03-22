@@ -17,9 +17,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Bienvenue sur Trìa" component={LoginPage} />
-        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Inscription" component={Register} />
         <Stack.Screen name="Votre compte est crée avec succés!" component={LoginPage2} />
-        <Stack.Screen name="MyTabs" component={MyTabs} />
+        <Stack.Screen name="Trìa" component={MyTabs} />
       </Stack.Navigator>
     </NavigationContainer>
   );
