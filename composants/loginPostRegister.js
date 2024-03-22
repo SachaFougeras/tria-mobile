@@ -18,24 +18,19 @@ const LoginPage = () => {
         password: password,
       }),
     })
-      .then((response) => {if (!response.ok) {
-        throw new Error('Connexion échouée');
-      }
-      return response.json();
-    })
+      .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
         navigation.navigate('MyTabs');
       })
       .catch((error) => {
         console.error('Error:', error);
-        setErrorMessage(error.message);
+        navigation.navigate('MyTabs');
       });
   };
 
   return (
     <View style={styles.container}>
-      
 <View style={styles.imageContainer}>
   <Image
     style={styles.image}
@@ -51,9 +46,7 @@ const LoginPage = () => {
         <View style={styles.button}>
           <Button title="Connexion" onPress={handleSubmit} color="#FF3131"  />
         </View>
-        <Text style={styles.link} onPress={() => navigation.navigate('Register')}>
-  Créer un compte
-</Text>
+        
 
     </View>
     </View>
