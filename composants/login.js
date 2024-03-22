@@ -6,6 +6,8 @@ const LoginPage = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('azertyu@erty.com');
   const [password, setPassword] = useState('Azertyuio06*aazza');
+  const [prenom, setPrenom] = useState('azertyuiop');
+  const [nom, setNom] = useState('azertyuiop');
   const [successMessage, setSuccessMessage] = useState(null);
 
   const handleSubmit = async () => {
@@ -22,12 +24,15 @@ const LoginPage = () => {
     })
     const responseData = await response.json();
   
-   if (responseData.status_code  == 200) {
-  navigation.navigate('MyTabs');
-  console.log(responseData);
-  setSuccessMessage('Vous vous êtes bien authentifié !');
-  alert('Vous vous êtes bien authentifié !');
-}
+    if (responseData.status_code  == 200) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'MyTabs' }],
+      });
+      console.log(responseData);
+      setSuccessMessage('Vous vous êtes bien authentifié !');
+      alert(`Bonjour ${prenom} ${nom}, vous vous êtes bien authentifié !`);
+    }
     else {
       // L'inscription a échoué, affichez un message d'erreur
       console.log(responseData);
@@ -42,6 +47,7 @@ const LoginPage = () => {
     <View style={styles.container}>
       {successMessage && <Text>{successMessage}</Text>}
 <View style={styles.imageContainer}>
+  <Text style={styles.title}>Trìa</Text>
   <Image
     style={styles.image}
     source={require('../assets/image.png')}
@@ -56,7 +62,7 @@ const LoginPage = () => {
         <View style={styles.button}>
           <Button title="Connexion" onPress={handleSubmit} color="#FF3131"  />
         </View>
-        <Text style={styles.link} onPress={() => navigation.navigate('Register')}>
+        <Text style={styles.link} onPress={() => navigation.navigate('Inscription')}>
   Créer un compte
 </Text>
 
@@ -69,23 +75,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     padding: 16,
   },
   card: {
+    flex: 0.75,
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 16,
   },
   title: {
-    fontSize: 24,
+    fontSize: 40,
     marginBottom: 24,
+    color: 'white',
   },
   input: {
     height: 35,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 16,
+    marginBottom: 10,
     paddingLeft: 8,
     width: '100%',
   },
