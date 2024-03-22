@@ -47,6 +47,7 @@ screenOptions={{
     component={HomeScreen}
     options={{
       tabBarIcon: ({ color, size }) => <HomeIcon color={color} size={size} />,
+      
     }}
   />
   <Tab.Screen

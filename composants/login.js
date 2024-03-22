@@ -6,9 +6,11 @@ const LoginPage = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('azertyu@erty.com');
   const [password, setPassword] = useState('Azertyuio06*aazza');
+  const [successMessage, setSuccessMessage] = useState(null);
 
-  const handleSubmit = () => {
-    fetch('http://139.59.189.145/api/login', {
+  const handleSubmit = async () => {
+    try {
+  const response = await fetch('http://139.59.189.145/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -18,24 +20,27 @@ const LoginPage = () => {
         password: password,
       }),
     })
-      .then((response) => {if (!response.ok) {
-        throw new Error('Connexion échouée');
+    const responseData = await response.json();
+  
+   if (responseData.status_code  == 200) {
+  navigation.navigate('MyTabs');
+  console.log(responseData);
+  setSuccessMessage('Vous vous êtes bien authentifié !');
+  alert('Vous vous êtes bien authentifié !');
+}
+    else {
+      // L'inscription a échoué, affichez un message d'erreur
+      console.log(responseData);
+      alert('Email ou mot de passe incorrect !');
       }
-      return response.json();
-    })
-      .then((data) => {
-        console.log('Success:', data);
-        navigation.navigate('MyTabs');
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        setErrorMessage(error.message);
-      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <View style={styles.container}>
-      
+      {successMessage && <Text>{successMessage}</Text>}
 <View style={styles.imageContainer}>
   <Image
     style={styles.image}

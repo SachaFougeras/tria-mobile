@@ -33,7 +33,7 @@ const Register = () => {
       if (responseData.status_code  == 200) {
         navigation.navigate('Votre compte est crée avec succés!');
         console.log(responseData);
-
+        alert('Votre compte est crée avec succés!');
       }
       else {
         // L'inscription a échoué, affichez un message d'erreur
@@ -41,6 +41,7 @@ const Register = () => {
       }
     } catch (error) {
       console.error(error);
+      alert('Certain champs sont incorrects !');
     }
   };
   
