@@ -30,7 +30,7 @@
 2. Clonez le projet à parti de github.
 
    ```bash
-      git clone https://github.com/MDS-NICE-B3-DEVWEB/API_Sacha.git
+      git clone https://github.com/SachaFougeras/tria-mobile.git
     ```
 
 3. Intallez Expo
