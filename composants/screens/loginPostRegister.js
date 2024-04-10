@@ -3,13 +3,10 @@ import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const LoginPage = () => {
-  const navigation = useNavigation();
-  const [email, setEmail] = useState('azertyu@erty.com');
-  const [password, setPassword] = useState('Azertyuio06*aazza');
-  const [prenom, setPrenom] = useState('azertyuiop');
-  const [nom, setNom] = useState('azertyuiop');
+  const navigation = useNavigation();  
+  const [email, setEmail] = useState('fougerassacha@gmail.com');
+  const [password, setPassword] = useState('A$azertyuio06*5698');
   const [successMessage, setSuccessMessage] = useState(null);
-
   const handleSubmit = async () => {
     try {
   const response = await fetch('http://139.59.189.145/api/login', {
@@ -23,7 +20,6 @@ const LoginPage = () => {
       }),
     })
     const responseData = await response.json();
-  
     if (responseData.status_code  == 200) {
       navigation.reset({
         index: 0,
@@ -42,16 +38,10 @@ const LoginPage = () => {
       console.error(error);
     }
   };
-
   return (
     <View style={styles.container}>
-      {successMessage && <Text>{successMessage}</Text>}
 <View style={styles.imageContainer}>
-  <Text style={styles.title}>Trìa</Text>
-  <Image
-    style={styles.image}
-    source={require('../assets/image.png')}
-  />
+<Image style={styles.image} source={require('../../images/image.png')} />
 </View> 
       <View style={styles.card}>
         <Text style={styles.title}>Connectez vous</Text>
@@ -62,9 +52,7 @@ const LoginPage = () => {
         <View style={styles.button}>
           <Button title="Connexion" onPress={handleSubmit} color="#FF3131"  />
         </View>
-        <Text style={styles.link} onPress={() => navigation.navigate('Inscription')}>
-  Créer un compte
-</Text>
+        
 
     </View>
     </View>
@@ -75,25 +63,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     padding: 16,
   },
   card: {
-    flex: 0.75,
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 16,
   },
   title: {
-    fontSize: 40,
+    fontSize: 24,
     marginBottom: 24,
-    color: 'white',
   },
   input: {
     height: 35,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 16,
     paddingLeft: 8,
     width: '100%',
   },

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginPage from './composants/login';
-import Register from './composants/register';
-import MyTabs from './composants/MyTabs';
-import LoginPage2 from './composants/loginPostRegister';
+import LoginScreen from './composants/screens/LoginScreen';
+import RegisterScreen from './composants/screens/RegisterScreen';
+import TabBar from './composants/Menu/TabBar';
+import LoginScreen2 from './composants/screens/loginPostRegister';
+import ShowDetailsScreen from './composants/screens/ShowDetailsScreen';
  
 
 const Stack = createStackNavigator();
@@ -16,10 +17,11 @@ export default function App() {
   
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Bienvenue sur Trìa" component={LoginPage} />
-        <Stack.Screen name="Inscription" component={Register} />
-        <Stack.Screen name="Votre compte est crée avec succés!" component={LoginPage2} />
-        <Stack.Screen name="Trìa" component={MyTabs} />
+        <Stack.Screen name="Bienvenue sur Trìa" component={LoginScreen} />
+        <Stack.Screen name="Inscription" component={RegisterScreen} />
+        <Stack.Screen name="Votre compte est crée avec succés!" component={LoginScreen2} />
+        <Stack.Screen name="Trìa" component={TabBar} options={{ headerShown: false }} />
+        <Stack.Screen name="Detail" component={ShowDetailsScreen} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );

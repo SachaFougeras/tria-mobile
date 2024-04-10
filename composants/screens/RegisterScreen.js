@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import MyTabs from '../composants/MyTabs';
 const Register = () => {
-  const [nom, setNom] = useState('azertyuiop');
-  const [prenom, setPrenom] = useState('azertyuiop');
-  const [email, setEmail] = useState('azertyu@erty.com');
-  const [password, setPassword] = useState('Azertyuio06*aazza');
-  const [password_confirmation, setPasswordConfirmation] = useState('Azertyuio06*aazza');
+  const [name, setNom] = useState('sacha');
+  const [first_name, setPrenom] = useState('fougeras');
+  const [email, setEmail] = useState('fougerassacha@gmail.com');
+  const [password, setPassword] = useState('A$azertyuio06*5698');
+  const [password_confirmation, setPasswordConfirmation] = useState('A$azertyuio06*5698');
   const navigation = useNavigation();
 
   const handleSubmit = async () => {
@@ -20,8 +19,8 @@ const Register = () => {
           'Accept': 'application/json',
         },
         body: JSON.stringify({
-          nom: nom,
-          prenom: prenom,
+          name: name,
+          first_name: first_name,
           email: email,
           password: password,
           password_confirmation: password_confirmation,
@@ -31,45 +30,44 @@ const Register = () => {
       const responseData = await response.json();
   
       if (responseData.status_code  == 200) {
-        navigation.navigate('Votre compte est crée avec succés!');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Votre compte est crée avec succés!' }],
+        });
         console.log(responseData);
-        alert('Votre compte est crée avec succés!');
+        alert(`'Vous vous êtes bien inscris !'`);
       }
+      else if (responseData.status_code == 400 && responseData.message == 'Email already exists') {
+        alert('Cette adresse e-mail existe déjà.');}
       else {
-        // L'inscription a échoué, affichez un message d'erreur
-        console.log(responseData);
+        alert('Certains champs sont incorrect !');
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-      alert('Certain champs sont incorrects !');
-    }
-  };
-  
+    };
 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-  <Image
-    style={styles.image}
-    source={require('../assets/image.png')}
-  />
+      <Image style={styles.image} source={require('../../images/image.png')} />
 </View> 
       <View style={styles.card}>
       <Text>Nom:</Text>
       <TextInput
-        style={styles.input}
-        placeholder="Nom"
-        onChangeText={text => setNom(text)}
-        value={nom}
-        keyboardType="name"
-        autoCapitalize="none"
-      />
+  style={styles.input}
+  placeholder="Poquelain"
+  onChangeText={text => setNom(text)}
+  value={name}
+  keyboardType="name"
+  autoCapitalize="none"
+/>
       <Text>Prenom:</Text>
       <TextInput
         style={styles.input}
-        placeholder="Prenom"
+        placeholder="Jean-Baptiste"
         onChangeText={text => setPrenom(text)}
-        value={prenom}
+        value={first_name}
         keyboardType="name"
         autoCapitalize="none"
       />

@@ -1,12 +1,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeIcon from '../composants/atoms/icons/HomeIcon';
-import SpectacleIcon from './atoms/icons/SpectaclesIcon';
-import TheatreIcon from './atoms/icons/MasquesTheatre';
-import LoginIcon from './atoms/icons/LoginIcon';
-import HomeScreen from '../composants/home';
-import AccountScreen from '../composants/compte';
+import HomeIcon from '../../assets/icons/HomeIcon';
+import SpectacleIcon from '../../assets/icons/SpectaclesIcon';
+import TheatreIcon from '../../assets/icons/MasquesTheatre';
+import LoginIcon from '../../assets/icons/LoginIcon';
+import HomeScreen from '../screens/HomeScreen';
+import AccountScreen from '../screens/AccountScreen';
+import TheaterScreen from '../screens/TheaterScreen';
 import React from 'react';
 
 
@@ -18,10 +19,9 @@ function SettingsScreen({ navigation }) {
       },
       headerTintColor: 'white',
       headerLeft: () => (
-        <Image
-          source={require('../assets/image.png')}
-          style={styles.logo}
-        />
+        <View style={styles.imageContainer}>
+        <Image style={styles.logo} source={require('../../images/image.png')} />
+        </View>  
       ),
     });
   }, [navigation]);
@@ -43,6 +43,7 @@ screenOptions={{
   tabBarStyle: {
     backgroundColor: '#100F0F',
   },
+  
 }}
 >
   <Tab.Screen
@@ -62,7 +63,7 @@ screenOptions={{
   />
   <Tab.Screen
     name="Théâtres"
-    component={SettingsScreen}
+    component={TheaterScreen}
     options={{
       tabBarIcon: ({ color, size }) => <TheatreIcon color={color} size={size} />,
     }}

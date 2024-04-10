@@ -1,51 +1,56 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginPage = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('azertyu@erty.com');
-  const [password, setPassword] = useState('Azertyuio06*aazza');
+  const [email, setEmail] = useState('fougerassacha@gmail.com');
+  const [password, setPassword] = useState('A$azertyuio06*5698');
+  const [first_name, setPrenom] = useState('azertyuiop');
+  const [name, setNom] = useState('azertyuiop');
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleSubmit = async () => {
     try {
-  const response = await fetch('http://139.59.189.145/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-    const responseData = await response.json();
-  
-    if (responseData.status_code  == 200) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Trìa' }],
+      const response = await fetch('http://139.59.189.145/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
       });
-      console.log(responseData);
-      setSuccessMessage('Vous vous êtes bien authentifié !');
-      alert(`Bonjour ${prenom} ${nom}, vous vous êtes bien authentifié !`);
-    }
-    else {
-      // L'inscription a échoué, affichez un message d'erreur
-      console.log(responseData);
-      alert('Email ou mot de passe incorrect !');
+      const responseData = await response.json();
+  
+      if (responseData.status_code == 200) {
+        // Store the authentication token
+        const token = responseData.token;
+        AsyncStorage.setItem('token', token);
+  
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Trìa' }],
+        });
+        console.log(responseData);
+        alert('Vous vous êtes bien authentifié !');
+      } else {
+        console.log(responseData);
+        alert('Email ou mot de passe incorrect !');
       }
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <View style={styles.container}>
+      {successMessage && <Text>{successMessage}</Text>}
 <View style={styles.imageContainer}>
-  <Image
-    style={styles.image}
-    source={require('../assets/image.png')}
-  />
+  <Text style={styles.title}>Trìa</Text>
+
 </View> 
       <View style={styles.card}>
         <Text style={styles.title}>Connectez vous</Text>
@@ -56,7 +61,9 @@ const LoginPage = () => {
         <View style={styles.button}>
           <Button title="Connexion" onPress={handleSubmit} color="#FF3131"  />
         </View>
-        
+        <Text style={styles.link} onPress={() => navigation.navigate('Inscription')}>
+  Créer un compte
+</Text>
 
     </View>
     </View>

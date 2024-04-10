@@ -1,12 +1,34 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, navigation, Button, Image } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AccountScreen = () => {
-  const [nom, setNom] = useState('azertyuiop');
-  const [prenom, setPrenom] = useState('azertyuiop');
-  const [email, setEmail] = useState('azertyu@erty.com');
+  const [name, setNom] = useState('');
+  const [first_name, setPrenom] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const authToken = await AsyncStorage.getItem('authToken');
+  
+      fetch('http://139.59.189.145/api/me{id}', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${authToken}`,
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          setNom(data.name);
+          setPrenom(data.first_name);
+          setEmail(data.email);
+        });
+    };
+  
+    fetchUser();
+  }, []);
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'Mon Compte', 
@@ -15,17 +37,44 @@ const AccountScreen = () => {
       },
       headerTintColor: 'white',
       headerLeft: () => (
-        <Image
-          source={require('../assets/image.png')}
-          style={styles.logo}
-        />
+        <View style={styles.imageContainer}>
+        <Image style={styles.logo} source={require('../../images/image.png')} />
+        </View> 
       ),
     });
   }, [navigation]);
 
  
   const navigation = useNavigation();
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch('http://139.59.189.145/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
   
+      const responseData = await response.json();
+  
+      if (responseData.status_code == 200) {
+        await AsyncStorage.setItem('authToken', responseData.token);
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Votre compte est crée avec succés!' }],
+        });
+      } else {
+        // Handle errors
+        console.error(responseData);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleLogout = () => {
     try {
       const handleLogout = async () => {
@@ -39,7 +88,10 @@ const AccountScreen = () => {
           });
           const responseData = await response.json();
           console.log(responseData);
-          navigation.navigate('Bienvenue sur Trìa');
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Bienvenue sur Trìa' }],
+          });
           alert('Vous avez été déconnecté avec succès !');
         } catch (error) {
           console.error(error);
@@ -55,8 +107,8 @@ const AccountScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text>Prénom: {prenom}</Text>
-        <Text>Nom: {nom},</Text>
+        <Text>Prénom: {first_name}</Text>
+        <Text>Nom: {name},</Text>
         <Text>Email: {email}</Text>
         <Button color="#FF3131" title="Se déconnecter" onPress={handleLogout} />
       </View>
