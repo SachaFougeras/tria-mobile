@@ -13,7 +13,7 @@ const HomeScreen = ({ navigation }) => {
   , []);
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Mon Compte', 
+      title: 'Accueil', 
       headerStyle: {
         backgroundColor: 'black',
       },
@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
       <Text style={styles.itemTitle}>{item.title}</Text>
       <Text style={styles.itemDescription}>{item.description}</Text>
       <View style={{ alignItems: 'center' }}> 
-    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detail', { id: item.id })}>
+    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detail', { showId: item.id })}>
       <Text style={{ color: '#F43A3A' }}>Détail</Text>
     </TouchableOpacity>
   </View> 

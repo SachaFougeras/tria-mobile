@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [first_name, setPrenom] = useState('azertyuiop');
   const [name, setNom] = useState('azertyuiop');
   const [successMessage, setSuccessMessage] = useState(null);
+  const [token, setToken] = useState(null);
 
   const handleSubmit = async () => {
     try {

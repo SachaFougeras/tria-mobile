@@ -8,6 +8,7 @@ import LoginIcon from '../../assets/icons/LoginIcon';
 import HomeScreen from '../screens/HomeScreen';
 import AccountScreen from '../screens/AccountScreen';
 import TheaterScreen from '../screens/TheaterScreen';
+import ShowScreen from '../screens/ShowScreen';
 import React from 'react';
 
 
@@ -56,7 +57,7 @@ screenOptions={{
   />
   <Tab.Screen
     name="Spectacles"
-    component={SettingsScreen}
+    component={ShowScreen}
     options={{
       tabBarIcon: ({ color, size }) => <SpectacleIcon color={color} size={size} />,
     }}
