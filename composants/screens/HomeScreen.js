@@ -5,12 +5,19 @@ const HomeScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('http://139.59.189.145/api/show')
-      .then(response => response.json())
-      .then(data => setData(data.item)) 
-      .catch(error => console.error(error));
-  }
-  , []);
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://api.triaonline.live/api/shows');
+        const data = await response.json();
+        console.log('Fetched data:', data);
+        setData(data.item);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchData();
+  }, []);
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'Accueil', 

@@ -13,6 +13,7 @@
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.14",
     "@react-navigation/drawer": "^6.6.7",
+    "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.3.21",
     "@types/react": "^18.2.68",
     "axios": "^1.6.8",
@@ -25,6 +26,8 @@
     "react-native-maps": "^1.13.0",
     "react-native-paper": "^5.12.3",
     "react-native-reanimated": "~3.6.2",
+    "react-native-safe-area-context": "^4.9.0",
+    "react-native-star-rating": "^1.1.0",
     "react-native-svg": "^14.1.0",
     "react-native-web": "~0.19.6",
     "typescript": "^5.4.3"

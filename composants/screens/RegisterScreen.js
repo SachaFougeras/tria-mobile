@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 const Register = () => {
   const [name, setNom] = useState('sacha');
@@ -8,11 +9,17 @@ const Register = () => {
   const [email, setEmail] = useState('fougerassacha@gmail.com');
   const [password, setPassword] = useState('A$azertyuio06*5698');
   const [password_confirmation, setPasswordConfirmation] = useState('A$azertyuio06*5698');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation();
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://139.59.189.145/api/register', {
+      const response = await fetch('https://api.triaonline.live/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,6 +73,7 @@ const Register = () => {
       <TextInput
         style={styles.input}
         placeholder="Jean-Baptiste"
+        
         onChangeText={text => setPrenom(text)}
         value={first_name}
         keyboardType="name"
@@ -81,19 +89,40 @@ const Register = () => {
         autoCapitalize="none"
       />
       <Text>Mot de passe:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Mot de passe contenant 12 caractères"
-        onChangeText={text => setPassword(text)}
-        value={password}
-        secureTextEntry />
-        <Text>Mot de passe à confirmer:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Mot de passe de confirmation"
-        onChangeText={text => setPasswordConfirmation(text)}
-        value={password_confirmation}
-        secureTextEntry />
+             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, position: 'relative' }}>
+  <TextInput
+    style={{ flex: 1, height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 8, paddingRight: 40 }}
+    secureTextEntry={!showPassword}
+    value={password}
+    onChangeText={setPassword}
+    placeholder="Password"
+  />
+  <TouchableOpacity 
+    style={{ position: 'absolute', right: 10, height: 35, justifyContent: 'center' }}
+    onPress={() => setShowPassword(!showPassword)}
+  >
+    <Ionicons name={showPassword ? 'eye' : 'eye-off'} size={24} color="black" />
+  </TouchableOpacity>
+</View>
+  <Text>Mot de passe à confirmer:</Text>
+<View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, position: 'relative' }}>
+
+  <TextInput
+    style={{ flex: 1, height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 8, paddingRight: 40 }}
+    secureTextEntry={!showPassword}
+    value={password_confirmation}
+    onChangeText={setPasswordConfirmation}
+    placeholder="Password"
+  />
+  <TouchableOpacity 
+    style={{ position: 'absolute', right: 10, height: 35, justifyContent: 'center' }}
+    onPress={() => setShowPassword(!showPassword)}
+  >
+    <Ionicons name={showPassword ? 'eye' : 'eye-off'} size={24} color="black" />
+  </TouchableOpacity>
+</View>
+<TouchableOpacity onPress={togglePasswordVisibility}>
+    </TouchableOpacity>
               <Button title="S'inscrire" onPress={handleSubmit} color="#FF3131" />
         </View>
 
@@ -115,6 +144,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 24,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingLeft: 8,
   },
   input: {
     height: 35,

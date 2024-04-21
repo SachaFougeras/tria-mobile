@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons } from '@expo/vector-icons';
 
 const LoginPage = () => {
   const navigation = useNavigation();
@@ -10,11 +11,12 @@ const LoginPage = () => {
   const [first_name, setPrenom] = useState('azertyuiop');
   const [name, setNom] = useState('azertyuiop');
   const [successMessage, setSuccessMessage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [token, setToken] = useState(null);
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('http://139.59.189.145/api/login', {
+      const response = await fetch('https://api.triaonline.live/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +60,21 @@ const LoginPage = () => {
         <Text>Email:</Text>
         <TextInput style={styles.input} value={email} onChangeText={setEmail} autoCapitalize="none" />
         <Text>Mot de passe:</Text>
-        <TextInput style={styles.input} value={password} onChangeText={setPassword} secureTextEntry />
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, position: 'relative' }}>
+  <TextInput
+    style={{ flex: 1, height: 35, borderColor: 'gray', borderWidth: 1, paddingLeft: 8, paddingRight: 40 }}
+    secureTextEntry={!showPassword}
+    value={password}
+    onChangeText={setPassword}
+    placeholder="Password"
+  />
+  <TouchableOpacity 
+    style={{ position: 'absolute', right: 10, height: 35, justifyContent: 'center' }}
+    onPress={() => setShowPassword(!showPassword)}
+  >
+    <Ionicons name={showPassword ? 'eye' : 'eye-off'} size={24} color="black" />
+  </TouchableOpacity>
+</View>
         <View style={styles.button}>
           <Button title="Connexion" onPress={handleSubmit} color="#FF3131"  />
         </View>
