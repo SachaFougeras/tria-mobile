@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, Image, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, Button, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AccountScreen = ({ navigation }) => {
@@ -55,7 +55,7 @@ const AccountScreen = ({ navigation }) => {
       headerTintColor: 'white',
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/image.png')} />
+        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
         </View> 
       ),
     });
@@ -68,7 +68,9 @@ const AccountScreen = ({ navigation }) => {
             <Text style={styles.itemDescription}>Prénom: {userData.user.first_name}</Text>
             <Text style={styles.itemDescription}>Nom: {userData.user.name}</Text>
             <Text style={styles.itemDescription}>Email: {userData.user.email}</Text>
-            <Button title="Déconnexion" color="#FF3131"onPress={handleLogout} />
+            <TouchableOpacity style={styles.button} onPress={handleLogout}>
+          <Text style={styles.buttonText}>DECONNEXION</Text>
+        </TouchableOpacity>
           </View>
         </>
       )}
@@ -89,11 +91,20 @@ const styles = StyleSheet.create({
     borderRadius: 5, // Optional: add some border radius for a card-like appearance
   },
   button: {
-    margin: 10,
-    alignSelf: 'stretch',
-    width: 300 ,
+    marginTop: 65,
+    backgroundColor: '#FF3131',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    borderRadius: 20,
+    width: '100%', // Ajoutez cette ligne
+    alignSelf: 'center', // Ajoutez cette ligne
   },
-  
+  buttonText: {
+    color: 'white',
+    fontSize: 18,  
+    fontWeight: 'bold', // Ajoutez cette ligne
+},
   itemTitle: {
     fontSize: 24, // Make the title bigger
     fontWeight: 'bold',

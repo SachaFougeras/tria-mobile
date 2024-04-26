@@ -9,6 +9,7 @@ import HomeScreen from '../screens/HomeScreen';
 import AccountScreen from '../screens/AccountScreen';
 import TheaterScreen from '../screens/TheaterScreen';
 import ShowScreen from '../screens/ShowScreen';
+import Average from '../screens/Average';
 import React from 'react';
 
 
@@ -21,7 +22,7 @@ function SettingsScreen({ navigation }) {
       headerTintColor: 'white',
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/image.png')} />
+        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
         </View>  
       ),
     });

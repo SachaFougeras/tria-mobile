@@ -27,7 +27,7 @@ const HomeScreen = ({ navigation }) => {
       headerTintColor: 'white',
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/image.png')} />
+        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
         </View> 
       ),
     });
@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }) => {
       <Text style={styles.itemDescription}>{item.description}</Text>
       <View style={{ alignItems: 'center' }}> 
     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detail', { showId: item.id })}>
-      <Text style={{ color: '#F43A3A' }}>Détail</Text>
+      <Text style={styles.buttonText}>Détail</Text>
     </TouchableOpacity>
   </View> 
     </View>
@@ -68,10 +68,18 @@ const HomeScreen = ({ navigation }) => {
       borderRadius: 5, // Optional: add some border radius for a card-like appearance
     },
     button: {
-      margin: 10,
-      alignSelf: 'stretch',
-      width: 300 ,
+      marginTop: 30,
+      backgroundColor: '#FF3131',
+      padding: 10,
+      alignItems: 'center',
+      borderRadius: 20,
+      width: '30%', // Ajoutez cette ligne
+      alignSelf: 'center', // Ajoutez cette ligne
     },
+    buttonText: {
+      color: 'white',
+      fontSize: 15,  
+  },
     
     itemTitle: {
       fontSize: 24, // Make the title bigger

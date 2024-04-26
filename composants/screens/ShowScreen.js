@@ -19,19 +19,20 @@ const ShowScreen = ({ navigation }) => {
       }
     };
   
+    console.log('Search:', search); // Log the search term
     fetchData();
   }, [search]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Accueil', 
+      title: 'Rechercher', 
       headerStyle: {
         backgroundColor: 'black',
       },
       headerTintColor: 'white',
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/image.png')} />
+        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
         </View> 
       ),
     });
@@ -53,26 +54,31 @@ const ShowScreen = ({ navigation }) => {
     <FlatList
       data={data}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({ item }) => (
-        <View style={styles.itemContainer}>
-          <Text style={styles.itemTitle}>{item.title}</Text>
-          <Text style={styles.itemDescription}>{item.description}</Text>
-          <View style={{ alignItems: 'center' }}> 
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detail', { showId: item.id })}>
-              <Text style={{ color: '#F43A3A' }}>Détail</Text>
-            </TouchableOpacity>
-          </View> 
-        </View>
-      )}
+      renderItem={({ item }) => {
+        console.log('Item:', item); // Log each item
+        return (
+          <View style={styles.itemContainer}>
+            <Text style={styles.itemTitle}>{item.title}</Text>
+            <Text style={styles.itemDescription}>{item.description}</Text>
+            <View style={{ alignItems: 'center' }}> 
+              <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detail', { showId: item.id })}>
+                <Text style={styles.buttonText}>Détail</Text>
+              </TouchableOpacity>
+            </View> 
+          </View>
+        );
+      }}
     />
   </ScrollView>
   );
 }
 
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: 'black',
+      padding: 10,
     },
     searchBar: {
       flexDirection: 'row',
@@ -95,10 +101,19 @@ const ShowScreen = ({ navigation }) => {
       borderRadius: 5,
     },
     button: {
-      margin: 10,
-      alignSelf: 'stretch',
-      width: 300 ,
+      marginTop: 30,
+      backgroundColor: '#FF3131',
+      padding: 10,
+      borderRadius: 5,
+      alignItems: 'center',
+      borderRadius: 20,
+      width: '30%', // Ajoutez cette ligne
+      alignSelf: 'center', // Ajoutez cette ligne
     },
+    buttonText: {
+      color: 'white',
+      fontSize: 15,  
+  },
     
     itemTitle: {
       fontSize: 24,

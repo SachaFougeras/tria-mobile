@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Card } from 'react-native';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Card } from 'react-native-paper';
+import StarRating from 'react-native-star-rating';
 
 const ShowDetailsScreen = ({ route }) => {
   const { showId } = route.params;
   const navigation = useNavigation();
   const [show, setShow] = useState(null);
+  const [averageRating, setAverageRating] = useState(null);
+
   const goToCommentScreen = () => {
     navigation.navigate('CommentScreen', { showId: showId });
   };
@@ -14,7 +18,7 @@ const ShowDetailsScreen = ({ route }) => {
   };
 
   useEffect(() => {
-    const fetchShowDetails = async () => {
+    const fetchData = async () => {
       try {
         const response = await fetch(`https://api.triaonline.live/api/show/${showId}`);
         if (!response.ok) {
@@ -24,39 +28,71 @@ const ShowDetailsScreen = ({ route }) => {
         const showData = data.show; // Extract show details from data
         console.log('Show details:', showData);
         setShow(showData);
+
+        const averageResponse = await fetch(`https://api.triaonline.live/api/shows/${showId}/average`);
+        if (!averageResponse.ok) {
+          console.error('Response status:', averageResponse.status);
+          console.error('Response text:', await averageResponse.text());
+          throw new Error('Failed to fetch data');
+        }
+        const averageData = await averageResponse.json();
+        setAverageRating(averageData.average_rating);
       } catch (error) {
-        console.error('Error fetching show details: ', error);
+        console.error('Error fetching data:', error);
       }
     };
-    fetchShowDetails();
+
+    fetchData();
   }, [showId]);
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Détails du spectacle', 
+      headerStyle: {
+        backgroundColor: 'black',
+      },
+      headerTintColor: 'white',
+    });
+  }, [navigation]);
 
-
- return (
-  <View style={styles.container}>
-  <View style={styles.itemContainer}>
-    {show && (
-      <>
-        <Text style={styles.itemTitle}>{show.title}</Text>
-        <Text style={styles.itemDescription}>Description: {show.description}</Text>
-        <Text style={styles.price}> Prix: {show.price}€</Text> 
-        <View style={styles.button}>
-        <Button title="Noter"style={styles.buttonDescription}  onPress={goToCommentScreen} color="#FF3131" /> 
-        </View>
-        <View style={styles.button}>
-        <Button style={styles.buttonDescription} title="Voir tous les commentaires" onPress={goToAllComments} /> 
-        </View>
-        
-      </>
-    )}
-  </View>
-  
-</View>
-);
-}
+  return (
+    <View style={styles.container}>
+      <View style={styles.itemContainer}>
+        {show && (
+          <>
+            <Text style={styles.itemTitle}>{show.title}</Text>
+            <Text style={styles.itemDescription}>Description: {show.description}</Text>
+            <Text style={styles.price}>Prix: {show.price}€</Text> 
+            <Text style={styles.price}>Date: {show.date}</Text>
+            <Text style={styles.price}>Durée: {show.durée}</Text>
+            <Card style={{ margin: 10 }}>
+        <Card.Content>
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <Text style={styles.title}>Note Moyenne: {averageRating}/5</Text>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={averageRating}
+              fullStarColor="#FFCE21"
+            />
+          </View>
+        </Card.Content>
+      </Card>
+            <View style={styles.button}>
+              <Button title="Noter"style={styles.buttonDescription}  onPress={goToCommentScreen} color="#FF3131" /> 
+            </View>
+            <View style={styles.button}>
+              <Button style={styles.buttonDescription} title="Voir les commentaires" onPress={goToAllComments} /> 
+            </View>
+          </>
+        )}
+      </View>
+    </View>
+  );
+};
 const styles = StyleSheet.create({
  
   price: {
+    marginBottom: 10,
     fontSize: 14,
     color: 'black',
   },

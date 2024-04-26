@@ -11,6 +11,8 @@ import CommentScreen from './composants/screens/CommentScreen';
 import AllComments from './composants/screens/AllComments';
 import TheaterScreen from './composants/screens/TheaterScreen';
 import TheaterPlaysScreen from './composants/screens/TheaterPlaysScreen';
+import Average from './composants/screens/Average';
+import WelcomeScreen from './composants/screens/WelcomScreen';
  
 
 const Stack = createStackNavigator();
@@ -18,17 +20,18 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-  
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Bienvenue sur Trìa" component={LoginScreen} />
+        <Stack.Screen name="Bienvenue" options={{ headerShown: false }} component={WelcomeScreen} />
+        <Stack.Screen name="Bienvenue sur Trìa" options={{ headerShown: false }} component={LoginScreen} />
         <Stack.Screen name="Inscription" component={RegisterScreen} />
         <Stack.Screen name="Votre compte est crée avec succés!" component={LoginScreen2} />
         <Stack.Screen name="Trìa" component={TabBar} options={{ headerShown: false }} />
         <Stack.Screen name="Detail" component={ShowDetailsScreen} /> 
         <Stack.Screen name="CommentScreen" component={CommentScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Tous les commentaires" component={AllComments} />
-        <Stack.Screen name="TheaterPlays" component={TheaterPlaysScreen} />
+        <Stack.Screen name="Spectacles qui se joue" component={TheaterPlaysScreen} />
+        <Stack.Screen name="Average" component={Average} />
       </Stack.Navigator>
     </NavigationContainer>
   );
