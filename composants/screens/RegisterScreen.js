@@ -21,6 +21,20 @@ const RegisterScreen = () => {
     setDate(currentDate.toISOString().split('T')[0]);
   };
   const handleSubmit = async () => {
+    // Validation
+    if (!email.includes('@')) {
+      alert('Veuillez entrer une adresse e-mail valide.');
+      return;
+    }
+    if (password.length < 12) {
+      alert('Le mot de passe doit contenir au moins 6 caractères.');
+      return;
+    }
+    if (password !== password_confirmation) {
+      alert('Le mot de passe et la confirmation du mot de passe doivent être identiques.');
+      return;
+    }
+  
     try {
       const response = await fetch('https://api.triaonline.live/api/register', {
         method: 'POST',
@@ -76,29 +90,29 @@ const RegisterScreen = () => {
         />
       </View> 
       <View style={styles.card}>
-      <Text>Nom:</Text>
+      <Text style={styles.text}>Nom:</Text>
       <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
         placeholder="Nom"
         onChangeText={text => setNom(text)}
         value={nom}
-        keyboardType="name"
+        keyboardType="default"
         autoCapitalize="none"
       />
      </View>
-      <Text>Prenom:</Text>
+      <Text style={styles.text}>Prenom:</Text>
       <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
         placeholder="Prenom"
         onChangeText={text => setPrenom(text)}
         value={prenom}
-        keyboardType="name"
+        keyboardType="default"
         autoCapitalize="none"
       />
       </View>
-      <Text>Date de naissance:</Text>
+      <Text style={styles.text}>Date de naissance:</Text>
       <View style={styles.inputContainer}>
   <TextInput
     style={styles.input}
@@ -117,28 +131,28 @@ const RegisterScreen = () => {
     onChange={handleDateChange}
   />
 )}
-      <Text>Telephone:</Text>
+      <Text style={styles.text}>Telephone:</Text>
       <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        placeholder="000000000000"
+        placeholder="Numéro de téléphone"
         onChangeText={text => setTel(text)}
         value={phone}
         keyboardType="phone-pad"
         autoCapitalize="none" />
         </View>
-      <Text>Email:</Text>
+      <Text style={styles.text}>Email:</Text>
       <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        placeholder="tria@gmail.com"
+        placeholder="Email"
         onChangeText={text => setEmail(text)}
         value={email}
         keyboardType="email-address"
         autoCapitalize="none"
       />
       </View>
-      <Text>Mot de passe:</Text>
+      <Text style={styles.text}>Mot de passe:</Text>
       <View style={styles.inputContainer}>
   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
     <TextInput
@@ -146,7 +160,7 @@ const RegisterScreen = () => {
       secureTextEntry={!showPassword}
       value={password}
       onChangeText={setPassword}
-      placeholder="Password"
+      placeholder="12 caractères, un chiffe, une majuscule et un caractère spécial."
     />
     <TouchableOpacity 
       style={{ height: 35, justifyContent: 'center' }}
@@ -156,7 +170,7 @@ const RegisterScreen = () => {
     </TouchableOpacity>
   </View>
 </View>
-  <Text>Mot de passe à confirmer:</Text>
+  <Text style={styles.text}>Mot de passe à confirmer:</Text>
   <View style={styles.inputContainer}>
   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
     <TextInput
@@ -192,6 +206,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 24,
+  },
+  text: {
+    fontSize: 15,
+    color: 'white',
   },
   inputContainer: {
     flexDirection: 'row',

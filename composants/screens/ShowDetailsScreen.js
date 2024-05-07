@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   },
     container: {
       flex: 1,
-      backgroundColor: 'black',
+      backgroundColor: '#0B0B0B',
       justifyContent: 'flex-start', // Change this line
     },
    

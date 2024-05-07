@@ -22,7 +22,7 @@ const HomeScreen = ({ navigation }) => {
     navigation.setOptions({
       title: 'Accueil', 
       headerStyle: {
-        backgroundColor: 'black',
+        backgroundColor: '#181818',
       },
       headerTintColor: 'white',
       headerLeft: () => (
@@ -36,22 +36,9 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-    <Text style={styles.title}>Découvrez les nouveautés</Text>
-    <FlatList
-  data={data}
-  keyExtractor={(item, index) => index.toString()}
-  renderItem={({ item }) => (
-    <View style={styles.itemContainer}>
-      <Text style={styles.itemTitle}>{item.title}</Text>
-      <Text style={styles.itemDescription}>{item.description}</Text>
-      <View style={{ alignItems: 'center' }}> 
-    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detail', { showId: item.id })}>
-      <Text style={styles.buttonText}>Détail</Text>
-    </TouchableOpacity>
-  </View> 
-    </View>
-  )}
-/>
+<Image style={styles.pixel} source={require('../../images/PixelImage.jpg')} />
+<Text style={styles.itemTitle}>Découvrez le théâtre sur petit écran</Text>
+
   </ScrollView>
   );
 }
@@ -83,8 +70,10 @@ const HomeScreen = ({ navigation }) => {
     
     itemTitle: {
       fontSize: 24, // Make the title bigger
+      marginTop: 20,
       fontWeight: 'bold',
-      color: 'black', // Change this to make the title black
+      color: 'white', // Change this to make the title black
+      textAlign: 'center',
     },
     itemDescription: {
       fontSize: 14,
@@ -94,6 +83,11 @@ const HomeScreen = ({ navigation }) => {
       width: 50,
       height: 50,
       marginLeft: 10,
+    },
+    pixel: {
+      marginTop: 20,
+      width: 400,
+      height: 200,
     }
   });
 export default HomeScreen;

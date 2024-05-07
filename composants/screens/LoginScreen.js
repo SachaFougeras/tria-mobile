@@ -16,7 +16,22 @@ const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [token, setToken] = useState(null);
 
+
+  const handleResetPassword = async () => {
+    // TODO: Send a request to your server to reset the password
+    console.log(`Reset password for ${email}`);
+  };
+
   const handleSubmit = async () => {
+    if (!email.includes('@')) {
+      alert('Veuillez entrer une adresse e-mail valide.');
+      return;
+    }
+    if (password.length < 12) {
+      alert('Le mot de passe doit contenir au moins 6 caractères.');
+      return;
+    }
+  
     try {
       const response = await fetch('https://api.triaonline.live/api/login', {
         method: 'POST',
@@ -79,7 +94,7 @@ const LoginPage = () => {
       <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
-        placeholder="tria@gmail.com"
+        placeholder="Email"
         onChangeText={text => setEmail(text)}
         value={email}
         keyboardType="email-address"
@@ -94,7 +109,7 @@ const LoginPage = () => {
       secureTextEntry={!showPassword}
       value={password}
       onChangeText={setPassword}
-      placeholder="Password"
+      placeholder="Mot de passe"
     />
     <TouchableOpacity 
       style={{ height: 35, justifyContent: 'center' }}
@@ -118,7 +133,7 @@ const LoginPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#0B0B0B',
     justifyContent: 'center',
     padding: 16,
     alignItems: 'center',

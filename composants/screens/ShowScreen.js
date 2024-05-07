@@ -25,9 +25,9 @@ const ShowScreen = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Rechercher', 
+      title: 'Spectacles', 
       headerStyle: {
-        backgroundColor: 'black',
+        backgroundColor: '#181818',
       },
       headerTintColor: 'white',
       headerLeft: () => (
@@ -59,7 +59,9 @@ const ShowScreen = ({ navigation }) => {
         return (
           <View style={styles.itemContainer}>
             <Text style={styles.itemTitle}>{item.title}</Text>
-            <Text style={styles.itemDescription}>{item.description}</Text>
+            <Text style={styles.itemDescription}>
+  {item.description.length > 400 ? item.description.substring(0, 100) + '...' : item.description}
+</Text>
             <View style={{ alignItems: 'center' }}> 
               <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Detail', { showId: item.id })}>
                 <Text style={styles.buttonText}>Détail</Text>
@@ -77,7 +79,7 @@ const ShowScreen = ({ navigation }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'black',
+      backgroundColor: '#0B0B0B',
       padding: 10,
     },
     searchBar: {
@@ -121,7 +123,7 @@ const ShowScreen = ({ navigation }) => {
       color: 'black',
     },
     itemDescription: {
-      fontSize: 14,
+      fontSize: 15,
       color: 'black',
     },
     logo: {

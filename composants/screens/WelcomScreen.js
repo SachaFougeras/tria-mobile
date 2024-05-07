@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ViewPropTypes from 'deprecated-react-native-prop-types';
 import { Ionicons } from '@expo/vector-icons';
 
 // ... rest of your code
@@ -26,7 +27,7 @@ const WelcomScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#0B0B0B',
     justifyContent: 'center',
     padding: 16,
   },

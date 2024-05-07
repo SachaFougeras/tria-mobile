@@ -6,18 +6,18 @@ import SpectacleIcon from '../../assets/icons/SpectaclesIcon';
 import TheatreIcon from '../../assets/icons/MasquesTheatre';
 import LoginIcon from '../../assets/icons/LoginIcon';
 import HomeScreen from '../screens/HomeScreen';
-import AccountScreen from '../screens/AccountScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import TheaterScreen from '../screens/TheaterScreen';
 import ShowScreen from '../screens/ShowScreen';
 import Average from '../screens/Average';
 import React from 'react';
 
 
-function SettingsScreen({ navigation }) {
+function TapBar({ navigation }) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        backgroundColor: 'black',
+        backgroundColor: '#181818',
       },
       headerTintColor: 'white',
       headerLeft: () => (
@@ -43,7 +43,7 @@ screenOptions={{
   tabBarActiveTintColor: '#F43A3A',
   tabBarInactiveTintColor: 'white',
   tabBarStyle: {
-    backgroundColor: '#100F0F',
+    backgroundColor: '#181818',
   },
   
 }}
@@ -71,8 +71,8 @@ screenOptions={{
     }}
   />
   <Tab.Screen
-    name="Compte"
-    component={AccountScreen}
+    name="Rêglages"
+    component={SettingsScreen}
     options={{
       tabBarIcon: ({ color, size }) => <LoginIcon color={color} size={size} />,
     }}
@@ -84,7 +84,7 @@ screenOptions={{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#140A0A',
+    backgroundColor: '#181818',
   },
   logo: {
     width: 50,

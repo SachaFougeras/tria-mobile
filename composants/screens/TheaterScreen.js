@@ -19,9 +19,9 @@ const TheaterScreen = ({navigation}) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Rechercher', 
+      title: 'Théâtres', 
       headerStyle: {
-        backgroundColor: 'black',
+        backgroundColor: '#181818',
       },
       headerTintColor: 'white',
       headerLeft: () => (
@@ -65,7 +65,7 @@ const TheaterScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#0B0B0B',
     padding: 10,
   },
   searchBar: {

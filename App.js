@@ -13,6 +13,7 @@ import TheaterScreen from './composants/screens/TheaterScreen';
 import TheaterPlaysScreen from './composants/screens/TheaterPlaysScreen';
 import Average from './composants/screens/Average';
 import WelcomeScreen from './composants/screens/WelcomScreen';
+import AccountScreen from './composants/screens/AccountScreen';
  
 
 const Stack = createStackNavigator();
@@ -29,6 +30,7 @@ export default function App() {
         <Stack.Screen name="Trìa" component={TabBar} options={{ headerShown: false }} />
         <Stack.Screen name="Detail" component={ShowDetailsScreen} /> 
         <Stack.Screen name="CommentScreen" component={CommentScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Account Screen" component={AccountScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Tous les commentaires" component={AllComments} />
         <Stack.Screen name="Spectacles qui se joue" component={TheaterPlaysScreen} />
         <Stack.Screen name="Average" component={Average} />

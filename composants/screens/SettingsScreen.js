@@ -11,7 +11,7 @@ const AccountScreen = ({ navigation }) => {
       try {
         const token = await AsyncStorage.getItem('token');
         const userId = await AsyncStorage.getItem('userId'); // Get the user ID
-        const response = await fetch(`https://api.triaonline.live/api/me/14`, {
+        const response = await fetch(`https://api.triaonline.live/api/me/2`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -48,7 +48,7 @@ const AccountScreen = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Mon Compte', 
+      title: 'Mon compte', 
       headerStyle: {
         backgroundColor: '#181818',
       },
@@ -70,6 +70,9 @@ const AccountScreen = ({ navigation }) => {
             <Text style={styles.itemDescription}>Email: {userData.user.email}</Text>
             <Text style={styles.itemDescription}>Téléphone: {userData.user.phone}</Text>
             <Text style={styles.itemDescription}>Date de naissance: {userData.user.birth_date}</Text>
+            <TouchableOpacity style={styles.button} onPress={handleLogout}>
+      <Text style={styles.buttonText}>DECONNEXION</Text>
+          </TouchableOpacity>
           </View>
         </>
       )}
@@ -79,7 +82,7 @@ const AccountScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#0B0B0B',
     justifyContent: 'center', // Center children vertically
     alignItems: 'center', // Center children horizontally
   },
