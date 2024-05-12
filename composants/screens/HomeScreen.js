@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, FlatList, Button, TouchableOpacity, Image } from 'react-native';
+import Search from '../../assets/icons/Search';
+import Star from '../../assets/icons/Star';
+import MasquesTheatre2 from '../../assets/icons/MasquesTheatre2';
+import LoginIcon from '../../assets/icons/LoginIcon';
+import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeScreen = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -38,7 +43,10 @@ const HomeScreen = ({ navigation }) => {
     <ScrollView style={styles.container}>
 <Image style={styles.pixel} source={require('../../images/PixelImage.jpg')} />
 <Text style={styles.itemTitle}>Découvrez le théâtre sur petit écran</Text>
-
+<Text style={styles.itemTitle2}><Search marginTop="35" color="white"size="30"/>Rechercher une pièce </Text>
+<Text style={styles.itemTitle2}><Star marginTop="35" color="white" size="30"/>Noter le contenu que vous avez visionné</Text>
+<Text style={styles.itemTitle2}><MasquesTheatre2 color="white" size="30" />Trouver un théâtre à proximité</Text>
+<Text style={styles.itemTitle2}><LoginIcon color="white" size="30" />Accédez au doonées de votre compte</Text>
   </ScrollView>
   );
 }
@@ -75,9 +83,16 @@ const HomeScreen = ({ navigation }) => {
       color: 'white', // Change this to make the title black
       textAlign: 'center',
     },
+    itemTitle2: {
+      fontSize: 20, // Make the title bigger
+      marginTop: 50,
+      fontWeight: 'bold',
+      color: 'white', // Change this to make the title black
+    },
     itemDescription: {
+      marginTop: 50,
       fontSize: 14,
-      color: 'black', // Change this to make the description black
+      color: 'white', // Change this to make the description black
     },
     logo: {
       width: 50,

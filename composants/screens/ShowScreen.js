@@ -80,6 +80,7 @@ const ShowScreen = ({ navigation }) => {
     container: {
       flex: 1,
       backgroundColor: '#0B0B0B',
+      
       padding: 10,
     },
     searchBar: {
@@ -88,7 +89,6 @@ const ShowScreen = ({ navigation }) => {
       backgroundColor: 'white',
       borderRadius: 10,
       paddingLeft: 10,
-      marginBottom: 10,
       marginLeft: 20, // Add this line
       marginRight: 10, // Add this line
     },
@@ -97,10 +97,10 @@ const ShowScreen = ({ navigation }) => {
       flex: 1,
     },
     itemContainer: {
-      marginBottom: 16,
       backgroundColor: 'white',
       padding: 10,
       borderRadius: 5,
+      marginBottom: 10,
     },
     button: {
       marginTop: 30,

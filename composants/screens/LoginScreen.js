@@ -53,6 +53,7 @@ const LoginPage = () => {
         AsyncStorage.setItem('token', token);
         AsyncStorage.setItem('first_name', responseData.first_name);
         AsyncStorage.setItem('name', responseData.name);
+        AsyncStorage.setItem('userId', responseData.user_id); // Add this line
       
         navigation.reset({
           index: 0,

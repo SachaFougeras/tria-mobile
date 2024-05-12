@@ -3,6 +3,7 @@ import { Text, View, Image, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeIcon from '../../assets/icons/HomeIcon';
 import SpectacleIcon from '../../assets/icons/SpectaclesIcon';
+import Search from '../../assets/icons/Search';
 import TheatreIcon from '../../assets/icons/MasquesTheatre';
 import LoginIcon from '../../assets/icons/LoginIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -60,14 +61,14 @@ screenOptions={{
     name="Spectacles"
     component={ShowScreen}
     options={{
-      tabBarIcon: ({ color, size }) => <SpectacleIcon color={color} size={size} />,
+      tabBarIcon: ({ color, size }) => <Search color={color} size={size} />,
     }}
   />
   <Tab.Screen
     name="Théâtres"
     component={TheaterScreen}
     options={{
-      tabBarIcon: ({ color, size }) => <TheatreIcon color={color} size={size} />,
+      tabBarIcon: ({ color, size }) => <SpectacleIcon color={color} size={size} />,
     }}
   />
   <Tab.Screen
