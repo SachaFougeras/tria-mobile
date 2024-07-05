@@ -11,7 +11,7 @@ const WelcomScreen = () => {
     const navigation = useNavigation();
 
   return (
-    <ImageBackground source={require('../../images/image.png')} style={styles.container}>
+    <ImageBackground source={require('../../assets/images/fond.png')} style={styles.container}>
     <View >
       <Text style={styles.title}>Bienvenue sur</Text>
         <Text style={styles.bigtitle}>🎭Trìa</Text>

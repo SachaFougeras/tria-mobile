@@ -7,30 +7,36 @@ const AllComments = ({ route }) => {
   const { showId } = route.params;
   const [averageRating, setAverageRating] = useState(null);
   const [comments, setComments] = useState([]);
-  const apiRoute = `https://api.triaonline.live/api/show/${showId}/comments`;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`https://api.triaonline.live/api/shows/${showId}/average`);
-        if (!response.ok) {
-          console.error('Response status:', response.status);
-          console.error('Response text:', await response.text());
-          throw new Error('Failed to fetch data');
-        }
-        const data = await response.json();
-        setAverageRating(data.average_rating);
-
-        const commentsResponse = await fetch(apiRoute);
-        const commentsData = await commentsResponse.json();
-        setComments(commentsData.comments);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+     
+      const averageResponse = await fetch(`https://api.triaonline.live/api/shows/${showId}/average`);
+      if (!averageResponse.ok) {
+        console.error('Response status:', averageResponse.status);
+        console.error('Response text:', await averageResponse.text());
+        throw new Error('Failed to fetch data');
       }
-    };
+      const averageData = await averageResponse.json();
+      setAverageRating(averageData.average_rating);
 
-    fetchData();
-  }, [showId, apiRoute]);
+      // Fetch comments
+      const commentsResponse = await fetch(`https://api.triaonline.live/api/show/${showId}/comments`);
+      if (!commentsResponse.ok) {
+        console.error('Response status:', commentsResponse.status);
+        console.error('Response text:', await commentsResponse.text());
+        throw new Error('Failed to fetch data');
+      }
+      const commentsData = await commentsResponse.json();
+      setComments(commentsData.comments);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+}, [showId]);
 
   return (
     <ScrollView style={styles.container}>

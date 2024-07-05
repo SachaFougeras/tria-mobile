@@ -63,7 +63,7 @@ const LoginPostRegister = () => {
       },
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
+        <Image style={styles.logo} source={require('../../assets/images/LogoTria.png')} />
         </View> 
       ),
     });
@@ -71,7 +71,7 @@ const LoginPostRegister = () => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require('../../images/LogoTria.png')} />
+      <Image style={styles.image} source={require('../../assets/images/LogoTria.png')} />
       <Text style={styles.title}>Se connecter</Text>
       <Text>Email:</Text>
       <View style={styles.inputContainer}>

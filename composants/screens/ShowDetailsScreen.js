@@ -65,6 +65,7 @@ const ShowDetailsScreen = ({ route }) => {
             <Text style={styles.price}>Date: {show.date}</Text>
             <Text style={styles.price}>Prix: {show.price}</Text> 
             <Text style={styles.price}>Mise en scène: {show.real}</Text>
+            <Text style={styles.price}>Distribution: {show.actors}</Text>
             <Text style={styles.price}>Théâtre: {show.theater_name}</Text>
 
             <Card style={{ margin: 10 }}>

@@ -10,10 +10,11 @@ const TheaterPlays = ({ route, navigation }) => {
 
   useEffect(() => {
     const fetchShows = async () => {
-      const response = await axios.get(`https://api.triaonline.live/api/theaters/${theaterId}/shows`);
-      setShows(response.data.shows);
-      setTheaterName(response.data.name); // Mettez à jour l'état avec le nom du théâtre
-      console.log(response.data);
+      const response = await fetch(`https://api.triaonline.live/api/theaters/${theaterId}/shows`);
+      const data = await response.json();
+      setShows(data.shows);
+      setTheaterName(data.name); // Mettez à jour l'état avec le nom du théâtre
+      console.log(data);
     };
   
     fetchShows();

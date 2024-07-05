@@ -32,7 +32,7 @@ const ShowScreen = ({ navigation }) => {
       headerTintColor: 'white',
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
+        <Image style={styles.logo} source={require('../../assets/images/LogoTria.png')} />
         </View> 
       ),
     });

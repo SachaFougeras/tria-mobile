@@ -11,7 +11,7 @@ const AccountScreen = ({ navigation }) => {
       try {
         const token = await AsyncStorage.getItem('token');
         const userId = await AsyncStorage.getItem('userId'); // Get the user ID
-        const response = await fetch(`https://api.triaonline.live/api/me/2`, {
+        const response = await fetch(`https://api.triaonline.live/api/me/26`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -55,7 +55,7 @@ const AccountScreen = ({ navigation }) => {
       headerTintColor: 'white',
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
+        <Image style={styles.logo} source={require('../../assets/images/LogoTria.png')} />
         </View> 
       ),
     });

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { View, TextInput, FlatList, Text, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-paper';
-import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const TheaterScreen = ({navigation}) => {
@@ -9,8 +8,9 @@ const TheaterScreen = ({navigation}) => {
   const [results, setResults] = useState([]);
 
   const searchTheaters = async () => {
-    const response = await axios.get(`https://api.triaonline.live/api/theaters/search?search=${search}`);
-    setResults(response.data.theaters);
+    const response = await fetch(`https://api.triaonline.live/api/theaters/search?search=${search}`);
+    const data = await response.json();
+    setResults(data.theaters);
   };
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const TheaterScreen = ({navigation}) => {
       headerTintColor: 'white',
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
+        <Image style={styles.logo} source={require('../../assets/images/LogoTria.png')} />
         </View> 
       ),
     });
@@ -50,7 +50,8 @@ const TheaterScreen = ({navigation}) => {
           <Card style={styles.card}>
             <Card.Content>
               <Text style={styles.itemTitle}>{item.name}</Text>
-              <Text style={styles.itemDescription}>{item.adress}</Text>
+              <Text style={styles.itemAdress}>{item.adress}</Text>
+              <Text style={styles.itemDescription}>{item.description}</Text>
               <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Spectacles qui se joue', { theaterId: item.id })}>
           <Text style={styles.buttonText}>Voir les pièces de théâtre</Text>
         </TouchableOpacity>
@@ -110,7 +111,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   itemDescription: {
-    fontSize: 14,
+    marginTop: 20,
+    fontSize: 15,
+    color: 'black',
+  },
+  itemAdress: {
+    marginTop: 20,
+    fontSize: 20,
     color: 'black',
   },
 });

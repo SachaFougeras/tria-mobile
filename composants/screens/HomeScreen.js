@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, FlatList, Button, TouchableOpacity, Image } from 'react-native';
+import ViewPropTypes from 'deprecated-react-native-prop-types';
 import Search from '../../assets/icons/Search';
 import Star from '../../assets/icons/Star';
 import MasquesTheatre2 from '../../assets/icons/MasquesTheatre2';
@@ -32,7 +33,7 @@ const HomeScreen = ({ navigation }) => {
       headerTintColor: 'white',
       headerLeft: () => (
         <View style={styles.imageContainer}>
-        <Image style={styles.logo} source={require('../../images/LogoTria.png')} />
+        <Image style={styles.logo} source={require('../../assets/images/LogoTria.png')} />
         </View> 
       ),
     });
@@ -41,7 +42,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <ScrollView style={styles.container}>
-<Image style={styles.pixel} source={require('../../images/PixelImage.jpg')} />
+<Image style={styles.pixel} source={require('../../assets/images/PixelImage.jpg')} />
 <Text style={styles.itemTitle}>Découvrez le théâtre sur petit écran</Text>
 <Text style={styles.itemTitle2}><Search marginTop="35" color="white"size="30"/>Rechercher une pièce </Text>
 <Text style={styles.itemTitle2}><Star marginTop="35" color="white" size="30"/>Noter le contenu que vous avez visionné</Text>

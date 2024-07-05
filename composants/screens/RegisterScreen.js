@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { View, TextInput, Button, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Image, Text, TouchableOpacity, Switch, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,18 +7,20 @@ import { Ionicons } from '@expo/vector-icons';
 const RegisterScreen = () => {
   const [nom, setNom] = useState('azertyuiop');
   const [prenom, setPrenom] = useState('azertyuiop');
-  const [birth_date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [phone, setTel] = useState('0782671870');
   const [email, setEmail] = useState('sacha@gmail.com');
+  const [birth_date, setDateOfBirth] = useState(new Date());
   const [password, setPassword] = useState('Azertyuio06*aazza');
   const [password_confirmation, setPasswordConfirmation] = useState('Azertyuio06*aazza');
   const [showPassword, setShowPassword] = useState(false);
-  const navigation = useNavigation();
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const handleDateChange = (event, selectedDate) => {
-    const currentDate = selectedDate || new Date(birth_date);
-    setShowDatePicker(Platform.OS === 'ios'); // cache le sélecteur de date uniquement pour iOS
-    setDate(currentDate.toISOString().split('T')[0]);
+  const [consent, setConsent] = useState(false);
+   const navigation = useNavigation();
+
+   const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || dateOfBirth;
+    setShowDatePicker(false);
+    setDateOfBirth(currentDate);
   };
   const handleSubmit = async () => {
     // Validation
@@ -27,7 +29,7 @@ const RegisterScreen = () => {
       return;
     }
     if (password.length < 12) {
-      alert('Le mot de passe doit contenir au moins 6 caractères.');
+      alert('Le mot de passe doit contenir au moins 12 caractères.');
       return;
     }
     if (password !== password_confirmation) {
@@ -36,6 +38,7 @@ const RegisterScreen = () => {
     }
   
     try {
+      const formattedDate = birth_date.toISOString().split('T')[0];
       const response = await fetch('https://api.triaonline.live/api/register', {
         method: 'POST',
         headers: {
@@ -46,7 +49,7 @@ const RegisterScreen = () => {
           name: nom,
           first_name: prenom,
           email: email,
-          birth_date: birth_date,
+          birth_date: formattedDate,
           phone: phone,
           password: password,
           password_confirmation: password_confirmation,
@@ -82,11 +85,11 @@ const RegisterScreen = () => {
     }, [navigation]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
-          source={require('../../images/LogoTria.png')}
+          source={require('../../assets/images/LogoTria.png')}
         />
       </View> 
       <View style={styles.card}>
@@ -112,25 +115,7 @@ const RegisterScreen = () => {
         autoCapitalize="none"
       />
       </View>
-      <Text style={styles.text}>Date de naissance:</Text>
-      <View style={styles.inputContainer}>
-  <TextInput
-    style={styles.input}
-    value={birth_date}// rend le champ de texte non modifiable
-  />
-<TouchableOpacity onPress={() => setShowDatePicker(prevState => !prevState)}>
-  <Icon name="calendar" size={30} color="#000" />
-</TouchableOpacity>
-</View>
-{showDatePicker && (
-  <DateTimePicker
-    testID="dateTimePicker"
-    value={new Date(birth_date)}
-    mode="date"
-    display="default"
-    onChange={handleDateChange}
-  />
-)}
+
       <Text style={styles.text}>Telephone:</Text>
       <View style={styles.inputContainer}>
       <TextInput
@@ -141,6 +126,29 @@ const RegisterScreen = () => {
         keyboardType="phone-pad"
         autoCapitalize="none" />
         </View>
+        <Text style={styles.text}>Date de naissance</Text>
+        <View style={styles.inputContainer}>
+          
+        <TextInput
+          style={styles.input}
+          placeholder="Date de naissance"
+          value={birth_date.toISOString().split('T')[0]}
+          editable={true}
+        />
+        
+        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+  <Icon name="calendar" size={24} color="black" /> 
+</TouchableOpacity>
+      </View>
+      {showDatePicker && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={birth_date}
+          mode="date"
+          display="default"
+          onChange={onChangeDate}
+        />
+      )}
       <Text style={styles.text}>Email:</Text>
       <View style={styles.inputContainer}>
       <TextInput
@@ -186,14 +194,24 @@ const RegisterScreen = () => {
     >
       <Ionicons name={showPassword ? 'eye' : 'eye-off'} size={24} color="black" />
     </TouchableOpacity>
+    
   </View>
 </View>
+<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+  <Switch
+    value={consent}
+    onValueChange={(newValue) => setConsent(newValue)}
+  />
+ <Text style={styles.itemDescription}>J'accepte les règles et conditions d'utilisation.</Text>
+</View>
+  
 <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>INSCRIPTION</Text>
         </TouchableOpacity>
         </View>
 
-    </View>
+        </ScrollView>
   );
 };
 const styles = StyleSheet.create({
@@ -216,7 +234,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 7,
     paddingLeft: 8,
     borderRadius: 10,
     backgroundColor: 'rgba(238, 238, 238, 1)',
@@ -249,6 +267,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     
+  },
+
+  itemDescription: {
+   
+    marginLeft: 10,
+    fontSize: 15,
+    color: 'white', // Change this to make the description black
   },
   link: {
     color: '#FF3131',
